@@ -1,17 +1,23 @@
 import pandas as pd
 from limpeza import load_and_clean_data
 from estatisticas import get_statistical_description
+from analysis_univariate import perform_univariate_analysis
 
 def main():
-    # Caminho do arquivo
     path = "predict+students+dropout+and+academic+success/data.csv"
     
-    # Executa a limpeza
-    df_limpo = load_and_clean_data(path)
+    # Carrega e limpa
+    df = load_and_clean_data(path)
     
-    if df_limpo is not None:
-        # Gera descrição para o artigo
-        get_statistical_description(df_limpo)
+    if df is not None:
+        # Mostra as colunas para conferência técnica
+        print("Colunas prontas para análise:", df.columns.tolist())
         
-        # Confirmação de colunas sem imprimir o dataframe completo
-        print(f"\nTotal de colunas processadas: {len(df_limpo.columns)}")
+        # Estatísticas
+        get_statistical_description(df)
+        
+        # Análise Univariada
+        perform_univariate_analysis(df)
+
+if __name__ == "__main__":
+    main()
